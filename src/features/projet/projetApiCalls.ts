@@ -58,16 +58,12 @@ export async function projetFindManyApiCall(
   signal?: AbortSignal,
 ) {
   const response = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_BACKEND_URL
-    }/api/projet?${objectToQuery(
-      {
-        filter,
-        orderBy,
-        skip,
-        take,
-      },
-    )}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projet?${objectToQuery({
+      filter,
+      orderBy,
+      skip,
+      take,
+    })}`,
     {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -158,9 +154,9 @@ export async function projetDestroyManyApiCall(
   signal?: AbortSignal,
 ) {
   const response = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_BACKEND_URL
-    }/api/projet?${objectToQuery({ ids })}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projet?${objectToQuery({
+      ids,
+    })}`,
     {
       method: 'DELETE',
       signal,

@@ -30,6 +30,9 @@ export async function projetFindManyController(
     context,
   );
 
+  const currentUserId = context.currentMembership?.id;
+  const currentUserRole = context.currentMembership?.roles[0]; // Assuming 'admin' or 'employer' as roles
+
   const { filter, orderBy, skip, take } =
     projetFindManyInputSchema.parse(query);
 
@@ -53,15 +56,42 @@ export async function projetFindManyController(
     });
   }
 
+  if (currentUserRole === 'employer') {
+    // Employer can only see projects where they are either observer or responsible in any livrable
+    whereAnd.push({
+      livrable: {
+        some: {
+          wfs: {
+            some: {
+              OR: [
+                { observerId: currentUserId },
+                { responsibleId: currentUserId },
+              ],
+            },
+          },
+        },
+      },
+    });
+    console.log('Employer user - fetching restricted projects');
+  }
+
   const prisma = prismaAuth(context);
 
+  // Apply the filtering logic in the findMany call
   let projets = await prisma.projet.findMany({
-    where: {
-      AND: whereAnd,
-    },
     skip,
     take,
     orderBy,
+    where: {
+      AND: whereAnd, // Apply the filter conditions here
+    },
+    include: {
+      livrable: {
+        include: {
+          wfs: true,
+        },
+      },
+    },
   });
 
   const count = await prisma.projet.count({

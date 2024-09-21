@@ -18,7 +18,7 @@ export async function generateMetadata() {
 
 export default async function LivrableListPage() {
   const context = await appContextForReact(cookies());
-
+  //console.log('context', context.currentUser?.email)
   if (!hasPermission(livrablePermissions.livrableRead, context)) {
     return redirect('/');
   }

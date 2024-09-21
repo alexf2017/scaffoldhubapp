@@ -21,7 +21,7 @@ export const projetPermissions = {
 
   projetRead: {
     id: 'projetRead',
-    allowedRoles: [roles.admin],
+    allowedRoles: [roles.admin, roles.employer],
   },
 
   projetAutocomplete: {

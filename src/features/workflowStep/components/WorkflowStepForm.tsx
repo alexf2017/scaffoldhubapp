@@ -223,34 +223,6 @@ export function WorkflowStepForm({
           <div className="grid max-w-lg gap-1">
             <FormField
               control={form.control}
-              name="steptitle"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{dictionary.workflowStep.fields.steptitle}</FormLabel>
-
-                  <StepsAutocompleteInput
-                    context={context}
-                    onChange={field.onChange}
-                    value={field.value}
-                    isClearable={true}
-                    disabled={mutation.isPending || mutation.isSuccess}
-                    mode="memory"
-                  />
-
-                  {dictionary.workflowStep.hints.steptitle ? (
-                    <FormDescription>
-                      {dictionary.workflowStep.hints.steptitle}
-                    </FormDescription>
-                  ) : null}
-
-                  <FormMessage data-testid="steptitle-error" />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="grid max-w-lg gap-1">
-            <FormField
-              control={form.control}
               name="workFlow"
               render={({ field }) => (
                 <FormItem>
@@ -272,6 +244,34 @@ export function WorkflowStepForm({
                   ) : null}
 
                   <FormMessage data-testid="workFlow-error" />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid max-w-lg gap-1">
+            <FormField
+              control={form.control}
+              name="steptitle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{dictionary.workflowStep.fields.steptitle}</FormLabel>
+
+                  <StepsAutocompleteInput
+                    context={context}
+                    onChange={field.onChange}
+                    value={field.value}
+                    isClearable={true}
+                    disabled={mutation.isPending || mutation.isSuccess}
+                    mode="memory"
+                  />
+
+                  {dictionary.workflowStep.hints.steptitle ? (
+                    <FormDescription>
+                      {dictionary.workflowStep.hints.steptitle}
+                    </FormDescription>
+                  ) : null}
+
+                  <FormMessage data-testid="steptitle-error" />
                 </FormItem>
               )}
             />

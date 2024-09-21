@@ -188,7 +188,7 @@ export function AuthenticatedUserNav({
               <span>{context.dictionary.apiKey.docs.menu}</span>
             </DropdownMenuItem>
             {process.env.NEXT_PUBLIC_TENANT_MODE === 'multi' &&
-            hasPermissionToEditTenant ? (
+              hasPermissionToEditTenant ? (
               <DropdownMenuItem
                 onSelect={() => setTenantToEdit(context.currentTenant)}
               >

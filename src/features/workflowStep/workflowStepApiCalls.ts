@@ -12,6 +12,7 @@ import { ApiErrorPayload } from 'src/shared/errors/ApiErrorPayload';
 import { importerOutputSchema } from 'src/shared/schemas/importerSchemas';
 import { z } from 'zod';
 
+import axios from 'axios';
 export async function workflowStepAutocompleteApiCall(
   query?: z.input<typeof workflowStepAutocompleteInputSchema>,
   signal?: AbortSignal,
@@ -78,7 +79,15 @@ export async function workflowStepFindManyApiCall(
       signal,
     },
   );
-  console.log('HHHHHHHHHHH', response);
+  // const getCurrentUser = () => {
+  //   axios
+  //     .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/me`)
+  //     .then((res) => {
+  //       return res.data;
+  //     });
+  // };
+
+  // console.log('HHHHHHHHHHH', getCurrentUser());
   if (!response.ok) {
     const payload = (await response.json()) as ApiErrorPayload;
     throw new Error(payload.errors?.[0]?.message);
@@ -90,6 +99,39 @@ export async function workflowStepFindManyApiCall(
   };
 }
 
+export async function workflowStepCurrentUserFindManyApiCall(
+  {
+    filter,
+    orderBy,
+    skip,
+    take,
+  }: z.input<typeof workflowStepFindManyInputSchema>,
+  signal?: AbortSignal,
+) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/workflow-step?${objectToQuery({
+      filter,
+      orderBy,
+      skip,
+      take,
+    })}`,
+    {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      signal,
+    },
+  );
+
+  if (!response.ok) {
+    const payload = (await response.json()) as ApiErrorPayload;
+    throw new Error(payload.errors?.[0]?.message);
+  }
+
+  return (await response.json()) as {
+    count: number;
+    workflowSteps: WorkflowStep[];
+  };
+}
 export async function workflowStepCreateApiCall(
   data: z.input<typeof workflowStepCreateInputSchema>,
   signal?: AbortSignal,

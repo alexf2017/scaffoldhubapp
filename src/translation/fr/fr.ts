@@ -1,5 +1,5 @@
 const dictionary = {
-  projectName: 'Gestion Livrables',
+  projectName: 'Gestion Des Livrables',
 
   shared: {
     yes: 'Oui',

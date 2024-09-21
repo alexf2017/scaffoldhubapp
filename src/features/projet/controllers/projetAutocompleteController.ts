@@ -74,7 +74,7 @@ export async function projetAutocompleteController(
   return projets.map((projet) => {
     return {
       id: projet.id,
-    title: String(projet.title),
+      title: String(projet.title),
     };
   });
 }

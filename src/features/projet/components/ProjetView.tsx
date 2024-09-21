@@ -16,6 +16,7 @@ import { LivrableLink } from 'src/features/livrable/components/LivrableLink';
 import { projetLabel } from 'src/features/projet/projetLabel';
 import { MembershipLink } from 'src/features/membership/components/MembershipLink';
 import { membershipLabel } from 'src/features/membership/membershipLabel';
+import { LuBan, LuCheckCircle } from 'react-icons/lu';
 
 export function ProjetView({
   id,
@@ -99,8 +100,9 @@ export function ProjetView({
             <div className="col-span-2 flex items-baseline gap-4 lg:col-span-3">
               <span>
                 {projet.isDone
-                  ? dictionary.shared.yes
-                  : dictionary.shared.no}
+                  ? <LuCheckCircle />
+                  : <LuBan />
+                }
               </span>
               <CopyToClipboardButton
                 text={
@@ -134,7 +136,7 @@ export function ProjetView({
               );
             })}
           </div>
-        </div>): null}
+        </div>) : null}
 
         {projet.createdByMembership != null && (
           <div className="grid grid-cols-3 gap-4 py-4 text-sm lg:grid-cols-4">

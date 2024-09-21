@@ -20,6 +20,8 @@ export default function LivrableEdit({
   id: string;
 }) {
   const dictionary = context.dictionary;
+  const roleName = context.currentMembership?.roles[0];
+  console.log('first', roleName)
   const router = useRouter();
   const [livrable, setLivrable] = useState<LivrableWithRelationships>();
 
@@ -28,7 +30,7 @@ export default function LivrableEdit({
       try {
         setLivrable(undefined);
         const livrable = await livrableFindApiCall(id);
-
+        console.log('rrrrrrrrrrr', livrable)
         if (!livrable) {
           router.push('/livrable');
         }
@@ -64,6 +66,7 @@ export default function LivrableEdit({
         <LivrableForm
           context={context}
           livrable={livrable}
+          roleName={roleName} // Pass the roleName to the form
           onSuccess={(livrable: Livrable) => router.push(`/livrable/${livrable.id}`)}
           onCancel={() => router.push('/livrable')}
         />

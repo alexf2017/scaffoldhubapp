@@ -14,7 +14,7 @@ import { useMemo } from 'react';
 import { WorkflowStepActions } from 'src/features/workflowStep/components/WorkflowStepActions';
 import WorkflowStepListActions from 'src/features/workflowStep/components/WorkflowStepListActions';
 import WorkflowStepListFilter from 'src/features/workflowStep/components/WorkflowStepListFilter';
-import { workflowStepFindManyApiCall } from 'src/features/workflowStep/workflowStepApiCalls';
+import { workflowStepCurrentUserFindManyApiCall, workflowStepFindManyApiCall } from 'src/features/workflowStep/workflowStepApiCalls';
 import {
   WorkflowStepWithRelationships,
   workflowStepFilterInputSchema,
@@ -91,7 +91,7 @@ export default function WorkflowStepList({ context }: { context: AppContext }) {
       cell: ({ getValue, row }) => (
         <span className="whitespace-nowrap flex justify-end">
           <Link
-            className="text-blue-500 hover:text-blue-400 hover:underline focus:text-blue-400 dark:text-blue-400"
+            className="zzz text-blue-500 hover:text-blue-400 hover:underline focus:text-blue-400 dark:text-blue-400"
             href={`/workflow-step/${row?.original?.id}`}
             prefetch={false}
           >
@@ -206,7 +206,7 @@ export default function WorkflowStepList({ context }: { context: AppContext }) {
   const query = useQuery({
     queryKey: ['workflowStep', 'list', filter, sorting, pagination],
     queryFn: async ({ signal }) => {
-      return workflowStepFindManyApiCall(
+      return workflowStepCurrentUserFindManyApiCall(
         {
           filter: filter,
           skip: pagination.pageIndex * pagination.pageSize,

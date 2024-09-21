@@ -39,6 +39,8 @@ export async function livrableUpdateController(
     permissions.livrableUpdate,
     context,
   );
+  const currentMembershipId = context.currentMembership?.id;
+  const currentMembershipRole = context.currentMembership?.roles[0];
 
   const { id } = livrableUpdateParamsInputSchema.parse(params);
 
@@ -46,8 +48,23 @@ export async function livrableUpdateController(
 
   const prisma = prismaAuth(context);
 
+  let updateData = {};
 
-
+  // If the current user is an admin, allow full update
+  if (currentMembershipRole === 'admin') {
+    updateData = {
+      title: data.title,
+      document: data.document,
+      projet: prismaRelationship.connectOrDisconnectOne(data.projet),
+      statusname: prismaRelationship.connectOrDisconnectOne(data.statusname),
+    };
+  }
+  // If the current user is an employer, only allow updating the document
+  else if (currentMembershipRole === 'employer') {
+    updateData = {
+      document: data.document,
+    };
+  }
   await prisma.livrable.update({
     where: {
       id_tenantId: {
@@ -55,12 +72,7 @@ export async function livrableUpdateController(
         tenantId: currentTenant.id,
       },
     },
-    data: {
-      title: data.title,
-      document: data.document,
-      projet: prismaRelationship.connectOrDisconnectOne(data.projet),
-      statusname: prismaRelationship.connectOrDisconnectOne(data.statusname),
-    },
+    data: updateData,
   });
 
   let livrable = await prisma.livrable.findUniqueOrThrow({

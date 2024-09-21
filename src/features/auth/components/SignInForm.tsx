@@ -116,7 +116,7 @@ function SignInForm({ locale, dictionary }: SignInFormProps) {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid gap-2">
-            <div className="grid gap-1">
+            <div className="grid gap-1  ">
               <FormField
                 control={form.control}
                 name="email"
@@ -233,7 +233,7 @@ export function SignInFormWithRecaptcha(props: SignInFormProps) {
   if (!process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY) {
     return <SignInForm {...props} />;
   }
-
+  
   return (
     <GoogleReCaptchaProvider
       reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}

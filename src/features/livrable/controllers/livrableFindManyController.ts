@@ -29,6 +29,9 @@ export async function livrableFindManyController(
     permissions.livrableRead,
     context,
   );
+  // console.log('currentMembership', context.currentMembership?.id);
+  const currentMembershipId = context.currentMembership?.id;
+  const currentMembershipRole = context.currentMembership?.roles[0];
 
   const { filter, orderBy, skip, take } =
     livrableFindManyInputSchema.parse(query);
@@ -55,6 +58,17 @@ export async function livrableFindManyController(
     });
   }
 
+  if (currentMembershipRole === 'employer') {
+    // Employer can only see livrables where they are either observer or responsible
+    whereAnd.push({
+      OR: [
+        { wfs: { some: { observerId: currentMembershipId } } },
+        { wfs: { some: { responsibleId: currentMembershipId } } },
+      ],
+    });
+    //console.log('Employer user - fetching restricted livrables');
+  }
+
   const prisma = prismaAuth(context);
 
   let livrables = await prisma.livrable.findMany({
@@ -66,9 +80,11 @@ export async function livrableFindManyController(
     orderBy,
     include: {
       statusname: true,
-    }
+      projet: true,
+      wfs: true,
+    },
   });
-
+  //console.log('Livrables', livrables);
   const count = await prisma.livrable.count({
     where: {
       AND: whereAnd,

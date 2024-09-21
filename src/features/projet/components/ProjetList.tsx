@@ -32,6 +32,7 @@ import { AppContext } from 'src/shared/controller/appContext';
 import { ProjetNewButton } from 'src/features/projet/components/ProjetNewButton';
 import { z } from 'zod';
 import { Projet } from '@prisma/client';
+import { LuBadgeCheck, LuBan, LuCheckCircle } from 'react-icons/lu';
 
 const defaultData: Array<any> = [];
 
@@ -98,8 +99,8 @@ export default function ProjetList({ context }: { context: AppContext }) {
       },
       cell: ({ row }) => {
         return row.getValue('isDone')
-          ? dictionary.shared.yes
-          : dictionary.shared.no;
+          ? <LuCheckCircle />
+          : <LuBan />;
       },
     },
     {

@@ -15,13 +15,13 @@ export const livrablePermissions = {
 
   livrableUpdate: {
     id: 'livrableUpdate',
-    allowedRoles: [roles.admin],
+    allowedRoles: [roles.admin, roles.employer],
     allowedStorage: [storage.livrableDocument.id],
   },
 
   livrableRead: {
     id: 'livrableRead',
-    allowedRoles: [roles.admin],
+    allowedRoles: [roles.admin, roles.employer],
   },
 
   livrableAutocomplete: {

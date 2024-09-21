@@ -21,12 +21,12 @@ export const statusPermissions = {
 
   statusRead: {
     id: 'statusRead',
-    allowedRoles: [roles.admin],
+    allowedRoles: [roles.admin, roles.employer],
   },
 
   statusAutocomplete: {
     id: 'statusAutocomplete',
-    allowedRoles: [roles.admin],
+    allowedRoles: [roles.admin, roles.employer],
   },
 
   statusDestroy: {

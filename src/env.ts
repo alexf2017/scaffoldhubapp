@@ -9,7 +9,7 @@ export const zodEnv = z
     FRONTEND_URL: z.string(),
 
     // Locale
-    NEXT_PUBLIC_LOCALE: z.enum(['en', 'fr']).optional(),
+    NEXT_PUBLIC_LOCALE: z.enum(['fr', 'en']).optional(),
 
     // Database
     // Database URL used on the APP. Must NOT be the database admin,

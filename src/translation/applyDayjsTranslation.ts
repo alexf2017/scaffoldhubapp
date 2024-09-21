@@ -2,19 +2,11 @@ import dayjs from 'dayjs';
 import { Locale } from 'src/translation/locales';
 
 export function applyDayjsTranslation(locale: Locale) {
-  if (locale === 'en') {
+  if (locale === 'fr') {
     return;
   }
 
-  // if (locale === 'es') {
-  //   dayjs.locale(require('dayjs/locale/es'));
-  // }
-
-  // if (locale === 'de') {
-  //   dayjs.locale(require('dayjs/locale/de'));
-  // }
-
-  if (locale === 'fr') {
-    dayjs.locale(require('dayjs/locale/de'));
+  if (locale === 'en') {
+    dayjs.locale(require('dayjs/locale/en'));
   }
 }

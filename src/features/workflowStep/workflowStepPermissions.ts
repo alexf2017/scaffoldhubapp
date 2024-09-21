@@ -21,7 +21,7 @@ export const workflowStepPermissions = {
 
   workflowStepRead: {
     id: 'workflowStepRead',
-    allowedRoles: [roles.admin, roles.employer],
+    allowedRoles: [roles.admin],
   },
 
   workflowStepAutocomplete: {

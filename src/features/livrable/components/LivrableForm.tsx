@@ -35,15 +35,21 @@ export function LivrableForm({
   context,
   onSuccess,
   onCancel,
+  roleName, // Add roleName as a prop
+
 }: {
   onCancel: () => void;
   onSuccess: (livrable: LivrableWithRelationships) => void;
   livrable?: Partial<LivrableWithRelationships>;
   context: AppContext;
+  roleName?: string; // Add roleName type
+
 }) {
   const { locale, dictionary } = context;
 
   const queryClient = useQueryClient();
+
+  const isEmployer = roleName?.toLowerCase() === 'employer'; // Ensure it's compared correctly
 
   z.setErrorMap(getZodErrorMap(locale));
 
@@ -115,9 +121,9 @@ export function LivrableForm({
                   </FormLabel>
 
                   <Input
-                    disabled={mutation.isPending || mutation.isSuccess}
+                    disabled={isEmployer || mutation.isPending || mutation.isSuccess}
                     autoFocus
-          {...field}
+                    {...field}
                   />
 
                   {dictionary.livrable.hints.title ? (
@@ -175,7 +181,7 @@ export function LivrableForm({
                     onChange={field.onChange}
                     value={field.value}
                     isClearable={true}
-                    disabled={mutation.isPending || mutation.isSuccess}
+                    disabled={isEmployer || mutation.isPending || mutation.isSuccess}
                     mode="memory"
                   />
 
@@ -203,7 +209,7 @@ export function LivrableForm({
                     onChange={field.onChange}
                     value={field.value}
                     isClearable={true}
-                    disabled={mutation.isPending || mutation.isSuccess}
+                    disabled={isEmployer || mutation.isPending || mutation.isSuccess}
                     mode="memory"
                   />
 
